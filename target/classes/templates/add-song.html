@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Song</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-container h2, .form-container input, .form-container select {
+            font-weight: normal;
+        }
+
+        input[type="hidden"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <form action="/songs/add" method="post">
+        <h2>Title:</h2>
+        <input type="text" name="title" th:value="${song != null ? song.title : ''}">
+
+        <h2>Genre:</h2>
+        <input type="text" name="genre" th:value="${song != null ? song.genre : ''}">
+
+        <h2>Release Year:</h2>
+        <input type="number" min="1900" max="2024" name="releaseYear"
+               th:value="${song != null ? song.releaseYear : ''}">
+
+        <h2>Albums:</h2>
+        <select name="albumId">
+            <option th:each="album : ${albums}"
+                    th:value="${album.id}"
+                    th:text="${album.name + ', ' + album.genre + ' - ' + album.releaseYear}"
+                    th:selected="${song != null} ? (${album.id} == ${song.album.id}) : false">
+            </option>
+        </select>
+
+        <input type="hidden" th:value="${update != null}? ${true}:${false}" name="update">
+        <input type="hidden" th:value="${song != null}? ${song.id}:''" name="id">
+
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

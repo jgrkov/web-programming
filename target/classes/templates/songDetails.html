@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Song Details</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .song-details {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background-color: #ffffff;
+            padding: 20px;
+            width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+
+        section {
+            font-size: 16px;
+            color: #555;
+        }
+
+        section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        section ul li {
+            padding: 5px 0;
+        }
+
+        section ul li:before {
+            content: "• ";
+            color: #4CAF50;
+        }
+
+        .performers {
+            padding-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="song-details">
+    <header>
+        <h1 th:text="${entity.getTitle()}">Song title</h1>
+    </header>
+
+    <section>
+        <h2 th:text="${entity.getGenre()}">Genre</h2>
+        <h2 th:text="${entity.getReleaseYear()}">Year</h2>
+
+        <h2>Performers:</h2>
+        <ul>
+            <li th:each="artist : ${entity.getPerformers()}"
+                th:text="${artist.getFirstName()} + ' ' + ${artist.getLastName()}">Jon Bon Jovi</li>
+        </ul>
+    </section>
+</div>
+
+</body>
+</html>

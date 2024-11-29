@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Add new Performer to Book</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 24px;
+            border-radius: 5px;
+        }
+
+        section, aside {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            width: 65%;
+            float: left;
+        }
+
+        aside {
+            width: 30%;
+            float: right;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, td, th {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        td {
+            font-size: 16px;
+            color: #333;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .form-container {
+            border-radius: 10px;
+            background-color: lightgreen;
+            padding: 20px;
+            font-weight: bold;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Select the Artist to add to the List of Performers</h1>
+</header>
+
+<section>
+    <div class="form-container">
+        <h2>Select artist:</h2>
+        <form th:method="POST" th:action="@{/songDetails}">
+            <input type="hidden" name="trackId" th:value="${trackId}"/>
+            <div th:each="artist : ${artistList}">
+                <input type="radio" name="artistId" th:id="${artist.getId()}" th:value="${artist.getId()}"/>
+                <label th:for="${artist.getId()}"
+                       th:text="${artist.getFirstName()} + ' ' + ${artist.getLastName()}"></label>
+                <br/>
+            </div>
+            <br/>
+            <input type='submit' value='Add artist'>
+        </form>
+    </div>
+</section>
+
+<aside>
+    <table>
+        <tr>
+            <td><b>Track Id</b></td>
+            <td th:text="${trackId}">2</td>
+        </tr>
+    </table>
+</aside>
+
+<div class="clear"></div>
+
+</body>
+</html>
